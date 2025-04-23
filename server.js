@@ -31,11 +31,18 @@ io.on("connection", (socket) => {
     username = name;
     users[username] = { socketId: socket.id, password, status: "online", role };
     // Filter users based on role
-    const filteredUsers = Object.keys(users).filter(u => {
-      if (users[username].role === 'sender') return users[u].role === 'receiver';
-      if (users[username].role === 'receiver') return users[u].role === 'sender';
-      return false;
-    });
+    const filteredUsers = Object.keys(users)
+      .filter(u => u !== username)
+      .map(username => ({ 
+        username,
+        role: users[username].role 
+      }))
+      .filter(user => {
+        const currentRole = users[username].role;
+        return currentRole === 'sender' ? user.role === 'receiver' :
+               currentRole === 'receiver' ? user.role === 'sender' :
+               false;
+      });
     io.emit("user-list", filteredUsers);
     socket.emit("register-success", username);
   });
@@ -51,11 +58,18 @@ io.on("connection", (socket) => {
     users[username].status = "online";
     users[username].role = role;
     // Filter users based on role
-    const filteredUsers = Object.keys(users).filter(u => {
-      if (users[username].role === 'sender') return users[u].role === 'receiver';
-      if (users[username].role === 'receiver') return users[u].role === 'sender';
-      return false;
-    });
+    const filteredUsers = Object.keys(users)
+      .filter(u => u !== username)
+      .map(username => ({ 
+        username,
+        role: users[username].role 
+      }))
+      .filter(user => {
+        const currentRole = users[username].role;
+        return currentRole === 'sender' ? user.role === 'receiver' :
+               currentRole === 'receiver' ? user.role === 'sender' :
+               false;
+      });
     io.emit("user-list", filteredUsers);
     socket.emit("login-success", username);
   });
@@ -159,11 +173,18 @@ io.on("connection", (socket) => {
       users[username].status = "offline";
       io.emit("user-disconnected", username);
       // Filter users based on role
-    const filteredUsers = Object.keys(users).filter(u => {
-      if (users[username].role === 'sender') return users[u].role === 'receiver';
-      if (users[username].role === 'receiver') return users[u].role === 'sender';
-      return false;
-    });
+    const filteredUsers = Object.keys(users)
+      .filter(u => u !== username)
+      .map(username => ({ 
+        username,
+        role: users[username].role 
+      }))
+      .filter(user => {
+        const currentRole = users[username].role;
+        return currentRole === 'sender' ? user.role === 'receiver' :
+               currentRole === 'receiver' ? user.role === 'sender' :
+               false;
+      });
     io.emit("user-list", filteredUsers);
     }
   });
