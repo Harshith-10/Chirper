@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Socket.IO Client</title>
+  <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+</head>
+<body>
+  <h1>Socket.IO Client</h1>
+  <div id="message"></div>
+
+  <script>
+    const socket = io("http://4.174.214.30:8080"); // Update with your server's URL
+
+    socket.on("server-message", (msg) => {
+      document.getElementById("message").textContent = msg;
+    });
+  </script>
+</body>
+</html>

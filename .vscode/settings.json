@@ -1,0 +1,8 @@
+{
+    "appService.zipIgnorePattern": [
+        "node_modules{,/**}",
+        ".vscode{,/**}"
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/eead91ea-c8d2-439e-a2a5-987cf84ee43f/resourceGroups/SkyLink/providers/Microsoft.Web/sites/skylink-chirper",
+    "appService.deploySubpath": "."
+}
