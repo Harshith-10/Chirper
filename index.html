@@ -10,7 +10,7 @@
   <div id="message"></div>
 
   <script>
-    const socket = io("http://4.174.214.30:8080"); // Update with your server's URL
+    const socket = io("https://chirper-ubef.onrender.com"); // Update with your server's URL
 
     socket.on("server-message", (msg) => {
       document.getElementById("message").textContent = msg;
