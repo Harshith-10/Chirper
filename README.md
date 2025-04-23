@@ -135,6 +135,37 @@ socket.on("ice",    ({ from, candidate })=> { … });
 - **CORS**: currently `origin: "*"`. For production, restrict to your frontend domain.  
 - **Environment**: ensure `JWT_SECRET`, `REDIS_URL` (if using Redis adapter) in `.env`.
 
+## Deployment on Render
+
+This application can be deployed on Render using the provided `render.yaml` configuration file:
+
+### Automatic Deployment
+
+1. Push your code to GitHub
+2. Create a new web service on Render
+3. Select "Blueprint" as your deployment option and point to your repository
+4. Render will automatically detect the `render.yaml` file and set up:
+   - A Node.js web service for the application
+   - A Redis instance for session management and rate limiting
+
+### Manual Deployment
+
+If you prefer to set up services manually:
+
+1. Create a Redis instance on Render
+   - Go to "New" and select "Redis"
+   - Choose your preferred plan (Free tier available)
+   - Give it a name like "chirper-redis"
+   
+2. Create a Web Service for the application
+   - Go to "New" and select "Web Service"
+   - Connect your GitHub repository
+   - Set the environment variables:
+     - `REDIS_URL`: The Internal URL of your Redis instance
+     - `JWT_SECRET`: A secure random string for JWT signing
+
+The application is designed to work even if Redis is temporarily unavailable, falling back to in-memory storage when necessary.
+
 ---
 
 ## References (Search Attempts)
