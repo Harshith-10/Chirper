@@ -13,6 +13,9 @@ const io = new Server(server, {
   cors: { origin: '*' }
 });
 
+// Enable trust proxy for express-rate-limit to work correctly behind a proxy
+app.set('trust proxy', true);
+
 // Middleware
 app.use(helmet());
 app.use(cors());
